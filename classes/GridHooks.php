@@ -16,10 +16,12 @@ class GridHooks extends \Controller {
     $strClasses = "";
 
     // Bei diesen ContentElementen soll nichts verändert werden
-    $arrWrongCE = array('rowStart', 'rowEnd', 'colEnd');
+    if (in_array($objElement->type, array('rowStart', 'rowEnd', 'colEnd'))) {
+      return $strBuffer;
+    }
 
     // Abfrage, ob anzupassenden CEs und Klassen gesetzt wurden
-    if (!in_array($objElement->type, $arrWrongCE) && (isset($objElement->grid_columns) || isset($objElement->grid_options))) {
+    if (isset($objElement->grid_columns) || isset($objElement->grid_options)) {
       // Columns Klassen auslesen und in String speichern
       if($objElement->grid_columns) {
         $env = "FE";
@@ -64,11 +66,6 @@ class GridHooks extends \Controller {
 
       // Ausgabe abhängig vom Elementtyp anpassen
       switch ($objElement->type) {
-        case 'rowStart':
-        case 'rowEnd':
-        case 'colEnd':
-          # code...
-          break;
         case 'colStart':
           // vorhandene Klasse erweitern
           $strBuffer = str_replace('ce_colStart', 'ce_colStart '.$strClasses, $strBuffer);
