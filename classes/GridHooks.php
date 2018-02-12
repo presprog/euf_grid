@@ -33,7 +33,7 @@ class GridHooks extends \Controller {
           foreach ($GLOBALS['TL_HOOKS']['manipulateGridClasses'] as $callback)
           {
             $this->import($callback[0]);
-            $class = $this->{$callback[0]}->{$callback[1]}($env, $strField, $class);
+            $class = $this->{$callback[0]}->{$callback[1]}($env, $strField, $class, $objElement);
           }
         }
 
@@ -54,7 +54,7 @@ class GridHooks extends \Controller {
           foreach ($GLOBALS['TL_HOOKS']['manipulateGridClasses'] as $callback)
           {
             $this->import($callback[0]);
-            $class = $this->{$callback[0]}->{$callback[1]}($env, $strField, $class);
+            $class = $this->{$callback[0]}->{$callback[1]}($env, $strField, $class, $objElement);
           }
         }
 
