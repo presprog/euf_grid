@@ -63,22 +63,15 @@ class GridHooks extends \Controller {
           $strClasses .= $class." ";
         }
       }
+    }
 
-      // Ausgabe abhängig vom Elementtyp anpassen
-      switch ($objElement->type) {
-        case 'colStart':
-          // vorhandene Klasse erweitern
-          $strBuffer = str_replace('ce_colStart', 'ce_colStart '.$strClasses, $strBuffer);
-          break;
-        default:
-          // Umschließendes DIV hinzufügen
-          $strBuffer = '<div class="' . $strClasses . '">' . $strBuffer . '</div>';
-          break;
-      }
+    // Vorhandene Klasse von colStart erweitern
+    if ($objElement->type === "colStart") {
+      return str_replace('ce_colStart', 'ce_colStart ' . $strClasses, $strBuffer);
     }
 
     // Rückgabe
-    return $strBuffer;
+    return '<div class="' . $strClasses . '">' . $strBuffer . '</div>';
   }
 
   // Grid-Klassen dem CE hinzufügen
